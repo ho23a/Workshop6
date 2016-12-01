@@ -2,9 +2,12 @@
 var express = require('express');
 // Creates an Express server.
 var app = express();
-
 var database = require('./database');
 var readDocument = database.readDocument;
+
+// You run the server from `server`, so `../client/build` is `server/../client/build`.
+// '..' means "go up one directory", so this translates into `client/build`!
+app.use(express.static('../client/build'));
 
 /**
 * Resolves a feed item. Internal to the server, since it's synchronous.
@@ -113,7 +116,3 @@ app.listen(3000, function () {
 //     res.status(400).end();
 //   }
 // });
-
-// You run the server from `server`, so `../client/build` is `server/../client/build`.
-// '..' means "go up one directory", so this translates into `client/build`!
-app.use(express.static('../client/build'));
